@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM-анализатор | Проверка DOM-элементов и SEO</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>DOM-анализатор</h1>
+            <p class="tagline">Инструмент для выявления битых DOM-элементов и SEO-проблем на вашем сайте</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="analyzer-form">
+            <form id="analyze-form">
+                <div class="input-group">
+                    <input type="url" id="url" name="url" placeholder="Введите URL сайта (например, https://example.com)" required>
+                    <button type="submit" id="analyze-btn">Анализировать</button>
+                </div>
+            </form>
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Анализируем страницу, пожалуйста, подождите...</p>
+            </div>
+        </section>
+
+        <section id="results" class="results hidden">
+            <div class="overall-score">
+                <div class="score-container">
+                    <div class="score-circle" id="overall-score-circle">
+                        <span id="overall-score">0</span>
+                    </div>
+                    <div class="score-label">Общий балл</div>
+                </div>
+                <div class="score-container">
+                    <div class="score-circle" id="broken-score-circle">
+                        <span id="broken-score">0</span>
+                    </div>
+                    <div class="score-label">DOM-структура</div>
+                </div>
+                <div class="score-container">
+                    <div class="score-circle" id="seo-score-circle">
+                        <span id="seo-score">0</span>
+                    </div>
+                    <div class="score-label">SEO</div>
+                </div>
+            </div>
+
+            <div class="summary">
+                <h2>Результаты анализа для <span id="result-url"></span></h2>
+                <div class="summary-stats">
+                    <div class="stat-box">
+                        <h3>Всего проанализировано элементов</h3>
+                        <p id="total-elements">0</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Битых элементов</h3>
+                        <p><span id="broken-elements">0</span> (<span id="broken-percent">0%</span>)</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Элементов с SEO-проблемами</h3>
+                        <p><span id="seo-issues">0</span> (<span id="seo-issues-percent">0%</span>)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="broken">Битые элементы</button>
+                    <button class="tab-btn" data-tab="seo">SEO-проблемы</button>
+                    <button class="tab-btn" data-tab="charts">Графики</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="broken-tab" class="tab-pane active">
+                        <h2>Битые DOM-элементы</h2>
+                        <div class="breakdown">
+                            <h3>Распределение по типам проблем</h3>
+                            <div class="chart-container">
+                                <canvas id="broken-types-chart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="elements-list">
+                            <h3>Список обнаруженных битых элементов</h3>
+                            <div id="broken-elements-list" class="elements-container">
+                                <!-- Содержимое будет добавлено с помощью JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="seo-tab" class="tab-pane">
+                        <h2>SEO-проблемы</h2>
+                        <div class="breakdown">
+                            <h3>Распределение по типам SEO-проблем</h3>
+                            <div class="chart-container">
+                                <canvas id="seo-types-chart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="elements-list">
+                            <h3>Список элементов с SEO-проблемами</h3>
+                            <div id="seo-issues-list" class="elements-container">
+                                <!-- Содержимое будет добавлено с помощью JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="charts-tab" class="tab-pane">
+                        <h2>Дополнительные графики</h2>
+                        <div class="chart-row">
+                            <div class="chart-half">
+                                <h3>Процент битых элементов по тегам</h3>
+                                <div class="chart-container">
+                                    <canvas id="broken-by-tag-chart"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart-half">
+                                <h3>Процент SEO-проблем по тегам</h3>
+                                <div class="chart-container">
+                                    <canvas id="seo-by-tag-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recommendations">
+                <h2>Рекомендации по улучшению</h2>
+                <div id="recommendations-list">
+                    <!-- Рекомендации будут добавлены с помощью JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 DOM-анализатор. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

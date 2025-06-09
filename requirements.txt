@@ -1,0 +1,11 @@
+scikit-learn
+pandas
+numpy
+matplotlib
+seaborn
+jupyter
+beautifulsoup4
+requests
+tqdm
+flask
+joblib
